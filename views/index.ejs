@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title><%= title %></title>
+  <style>
+    .colStyle {
+      margin: 20px;
+      padding: 10px;
+      background-color: aliceblue;
+      border: 2px solid #3475e5;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <form action="/basicInfo" method="post" enctype="multipart/form-data">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 colStyle">
+          <h4 class="text-center text-primary">Image UPLOAD</h4>
+
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="image">Select Image</label>
+            <input type="file" name="image" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-sm btn-outline-success"> save IMAGE</button>
+          </div>
+
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </form>
+  </section>
+
+  <section>
+    <div class="container">
+      <% if(users!=''){ %>
+      <table class="table border">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Image</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <% users.forEach((row, index)=>{ %>
+        <tbody>
+          <tr>
+            <td><b><%= index + 1 %></b></td>
+            <td><%= row.username %></td>
+            <td> <img src="<%= row.image %>" class="img-thumbnail" width="50"> </td>
+            <td>
+              <a href="/edit/<%= row._id %>" class="btn btn-sm btn-primary"><i class="fa fa-edit"> Edit</i></a>
+            </td>
+            <td>
+              <a href="/delete/<%= row._id %>" class="btn btn-sm btn-danger" onclick="return confirm('Are you want to delete?')"><i class="fa fa-trash"> Delete</i></a>
+            </td>
+          </tr>
+        </tbody>
+        <% }) %>
+      </table>
+      <% } else { %>
+      <h3 class="text-center text-secondary">Record not found</h3>
+      <% } %>
+    </div>
+  </section>
+</body>
+
+</html>
